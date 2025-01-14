@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  ambev.developerevaluation.webapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+  
+  ambev.developerevaluation.database:
+    container_name: ambev_developer_evaluation_database
+    image: postgres:13
+    networks:
+      - backend_network    
+    environment:
+      POSTGRES_DB: DeveloperEvaluation
+      POSTGRES_USER: sa
+      POSTGRES_PASSWORD: Pass@word
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
