@@ -1,10 +1,12 @@
 using Ambev.DeveloperEvaluation.Domain.Entities;
 
-namespace Ambev.DeveloperEvaluation.Domain.Repositories;
-public interface IOrderRepository
+namespace Ambev.DeveloperEvaluation.Domain.Repositories
 {
-    Task<List<Order>> GetAllOrdersAsync();
-    Task<Order?> GetOrderByIdAsync(Guid id);
-
-    Task AddOrderAsync(Order order);
+    public interface IOrderRepository
+    {
+        Task<Order?> GetOrderByIdAsync(Guid id);
+        Task<List<Order>> GetOrdersAsync();
+        Task CreateOrderAsync(Order order);
+        Task UpdateOrderAsync(Order order);
+    }
 }

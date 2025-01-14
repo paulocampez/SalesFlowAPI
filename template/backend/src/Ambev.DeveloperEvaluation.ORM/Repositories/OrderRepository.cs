@@ -13,19 +13,25 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
             _context = context;
         }
 
-        public async Task<List<Order>> GetAllOrdersAsync()
-        {
-            return await _context.Orders.Include(o => o.Products).ToListAsync();
-        }
-
         public async Task<Order?> GetOrderByIdAsync(Guid id)
         {
-            return await _context.Orders.Include(o => o.Products).FirstOrDefaultAsync(o => o.Id == id);
+            return await _context.Orders.FindAsync(id);
         }
 
-        public async Task AddOrderAsync(Order order)
+        public async Task<List<Order>> GetOrdersAsync()
+        {
+            return await _context.Orders.ToListAsync();
+        }
+
+        public async Task CreateOrderAsync(Order order)
         {
             await _context.Orders.AddAsync(order);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateOrderAsync(Order order)
+        {
+            _context.Orders.Update(order);
             await _context.SaveChangesAsync();
         }
     }
